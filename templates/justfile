@@ -1,0 +1,47 @@
+# List available recipes
+default:
+    just --list
+
+alias c := create-component
+
+# Private helper recipe - won't show in --list
+_component-dir type:
+    @if [ "\{{type}}" = "app" ]; then echo "apps"; else echo "libs"; fi
+
+# Create a new component (app or lib)
+create-component type name description="":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    
+    # Create base directory
+    base_dir=`just _component-dir \{{type}}`
+    cd "${base_dir}"
+    
+    # Initialize with UV based on type
+    if [ "\{{type}}" = "app" ]; then
+        uv init --package \{{name}}
+        cd \{{name}}  # UV creates a nested directory for packages
+    else
+        uv init --lib \{{name}}
+        cd \{{name}}  # UV creates a nested directory for libraries
+    fi
+    
+    rm .python-version
+    
+    # Update description in pyproject.toml if provided
+    if [ ! -z "\{{description}}" ]; then
+        sed -i '' "s/Add your description here/\{{description}}/" pyproject.toml
+    fi
+    
+    # Create tests directory
+    mkdir -p tests
+    touch tests/__init__.py
+    touch tests/test_\{{name}}.py
+    
+    echo -e "\n✨ Component created successfully!"
+    echo -e "\nNext steps:"
+    echo "  1. Add your code to src/"
+    echo "  2. Write your tests in tests/"
+    if [ "\{{type}}" = "lib" ]; then
+        echo "  3. Add the library to workspace members in root pyproject.toml"
+    fi

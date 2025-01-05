@@ -1,0 +1,69 @@
+# Python build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env-*/
+
+# IDE settings
+## VS Code - ignore directory but keep settings.json and launch.json
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+
+## PyCharm
+.idea/
+## Vim
+*.swp
+*.swo
+*~
+
+# Testing and coverage
+.coverage
+coverage.xml
+.pytest_cache/
+.tox/
+htmlcov/
+.hypothesis/
+.nox/
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.pem
+credentials.json
+
+# Documentation
+docs/_build/
+site/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# OS-specific files
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+## Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini

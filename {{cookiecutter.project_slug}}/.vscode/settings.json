@@ -1,0 +1,24 @@
+{
+    // Python settings
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.exclude": [
+        "justfile",
+        "**/.venv",
+        "**/__pycache__"
+    ],
+    
+    // Enable Ruff for linting and formatting
+    "ruff.enable": true,
+    "ruff.organizeImports": true,
+    "ruff.lint.run": "onSave",
+    
+    // Format on save settings
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+        }
+    }
+} 
