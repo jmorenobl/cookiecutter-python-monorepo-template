@@ -26,7 +26,7 @@ create-component type name description="":
         cd \{{name}}  # UV creates a nested directory for libraries
     fi
     
-    rm .python-version
+    rm .python-version .git
     
     # Update description in pyproject.toml if provided
     if [ ! -z "{{description}}" ]; then
