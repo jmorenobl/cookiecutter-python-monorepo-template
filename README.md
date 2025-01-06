@@ -21,7 +21,7 @@ A Cookiecutter template for creating Python monorepo projects with apps and libr
 ## Usage
 
 ```bash
-cookiecutter gh:your-username/cookiecutter-monorepo-template
+cookiecutter gh:jmorenobl/cookiecutter-python-monorepo-template
 ```
 
 ## Template Options
