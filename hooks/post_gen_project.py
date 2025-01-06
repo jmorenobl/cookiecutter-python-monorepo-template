@@ -27,29 +27,6 @@ def main():
         if gitkeep.exists():
             gitkeep.unlink()
 
-    # Copy justfile from templates
-    template_dir = Path(os.environ.get("COOKIECUTTER_TEMPLATE_DIR", os.getcwd())).absolute()
-    
-    if template_dir.exists():
-        # Look for justfile in the correct location
-        possible_paths = [
-            template_dir.parent.parent / "templates" / "justfile",  # Go up two levels
-            template_dir.parent / "templates" / "justfile",  # Go up one level
-            Path("templates") / "justfile",  # Try relative to current directory
-            template_dir / "templates" / "justfile",
-            template_dir / "justfile"
-        ]
-        
-        for justfile_template in possible_paths:
-            justfile_template = justfile_template.absolute()
-            if justfile_template.exists():
-                shutil.copy(str(justfile_template), "justfile")
-                break
-        else:
-            print("Warning: Could not find justfile in template directories")
-    else:
-        print(f"Template directory does not exist: {template_dir}")
-
     # Remove .vscode directory if not needed
     if "{{ cookiecutter.use_vscode }}" != "yes":
         vscode_dir = Path(".vscode")

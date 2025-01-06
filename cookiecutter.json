@@ -5,5 +5,8 @@
     "python_version": "3.11",
     "author_name": "Your Name",
     "author_email": "your.email@example.com",
-    "use_vscode": "yes"
+    "use_vscode": "yes",
+    "_copy_without_render": [
+        "justfile"
+    ]
 } 
