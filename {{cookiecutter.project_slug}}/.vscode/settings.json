@@ -20,5 +20,16 @@
             "source.fixAll.ruff": "explicit",
             "source.organizeImports.ruff": "explicit"
         }
+    },
+
+    // Add current directory to PATH
+    "terminal.integrated.env.linux": {
+        "PATH": "${env:PATH}:${workspaceFolder}/tools"
+    },
+    "terminal.integrated.env.osx": {
+        "PATH": "${env:PATH}:${workspaceFolder}/tools"
+    },
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:PATH};${workspaceFolder}/tools"
     }
 } 

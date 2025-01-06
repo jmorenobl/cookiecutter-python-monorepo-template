@@ -10,35 +10,45 @@ def main():
     for dir_name in ["apps", "libs", "tools"]:
         os.makedirs(dir_name, exist_ok=True)
 
-    # Initialize UV environment
-    subprocess.run(["uv", "venv"], check=True)
+    # Initialize UV environment and install just
+    subprocess.run(["uv", "sync"], check=True)
 
-    # Create initial app and lib structure
-    app_name = "{{ cookiecutter.initial_app_name }}"
-    lib_name = "{{ cookiecutter.initial_lib_name }}"
-
-    # Create app directory
-    app_dir = Path("apps") / app_name
-    app_dir.mkdir(parents=True, exist_ok=True)
-    (app_dir / "src").mkdir(exist_ok=True)
-    (app_dir / "tests").mkdir(exist_ok=True)
-    (app_dir / "src" / "__init__.py").touch()
-    (app_dir / "tests" / "__init__.py").touch()
-
-    # Create lib directory
-    lib_dir = Path("libs") / lib_name
-    lib_dir.mkdir(parents=True, exist_ok=True)
-    (lib_dir / "src").mkdir(exist_ok=True)
-    (lib_dir / "tests").mkdir(exist_ok=True)
-    (lib_dir / "src" / "__init__.py").touch()
-    (lib_dir / "tests" / "__init__.py").touch()
+    # Create a just wrapper script in tools directory
+    tools_dir = Path("tools")
+    with open(tools_dir / "just", "w", encoding="utf-8") as f:
+        f.write("#!/bin/bash\nuv run just \"$@\"")
+    
+    # Make it executable
+    os.chmod(tools_dir / "just", 0o755)
+    
+    # Remove .gitkeep files
+    for dir_name in ["apps", "libs", "tools"]:
+        gitkeep = Path(dir_name) / ".gitkeep"
+        if gitkeep.exists():
+            gitkeep.unlink()
 
     # Copy justfile from templates
-    template_dir = Path(os.environ.get("COOKIECUTTER_TEMPLATE_DIR", ""))
+    template_dir = Path(os.environ.get("COOKIECUTTER_TEMPLATE_DIR", os.getcwd())).absolute()
+    
     if template_dir.exists():
-        justfile_template = template_dir / "templates" / "justfile"
-        if justfile_template.exists():
-            shutil.copy(str(justfile_template), "justfile")
+        # Look for justfile in the correct location
+        possible_paths = [
+            template_dir.parent.parent / "templates" / "justfile",  # Go up two levels
+            template_dir.parent / "templates" / "justfile",  # Go up one level
+            Path("templates") / "justfile",  # Try relative to current directory
+            template_dir / "templates" / "justfile",
+            template_dir / "justfile"
+        ]
+        
+        for justfile_template in possible_paths:
+            justfile_template = justfile_template.absolute()
+            if justfile_template.exists():
+                shutil.copy(str(justfile_template), "justfile")
+                break
+        else:
+            print("Warning: Could not find justfile in template directories")
+    else:
+        print(f"Template directory does not exist: {template_dir}")
 
     # Remove .vscode directory if not needed
     if "{{ cookiecutter.use_vscode }}" != "yes":

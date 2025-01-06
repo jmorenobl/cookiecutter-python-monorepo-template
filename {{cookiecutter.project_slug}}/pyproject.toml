@@ -7,7 +7,7 @@ requires-python = ">={{ cookiecutter.python_version }}"
 dependencies = []
 
 [tool.uv.workspace]
-members = ["libs/{{ cookiecutter.initial_lib_name }}", "apps/{{ cookiecutter.initial_app_name }}"]
+members = []
 
 [dependency-groups]
 dev = [

@@ -6,7 +6,7 @@ alias c := create-component
 
 # Private helper recipe - won't show in --list
 _component-dir type:
-    @if [ "\{{type}}" = "app" ]; then echo "apps"; else echo "libs"; fi
+    @if [ "{{type}}" = "app" ]; then echo "apps"; else echo "libs"; fi
 
 # Create a new component (app or lib)
 create-component type name description="":
@@ -29,8 +29,8 @@ create-component type name description="":
     rm .python-version
     
     # Update description in pyproject.toml if provided
-    if [ ! -z "\{{description}}" ]; then
-        sed -i '' "s/Add your description here/\{{description}}/" pyproject.toml
+    if [ ! -z "{{description}}" ]; then
+        sed -i '' 's/Add your description here/'"{{description}}"'/' pyproject.toml
     fi
     
     # Create tests directory

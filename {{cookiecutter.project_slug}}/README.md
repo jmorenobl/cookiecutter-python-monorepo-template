@@ -14,14 +14,7 @@ This is a Python monorepo project that uses `uv` for dependency management and `
 
 1. Install dependencies:
    ```bash
-   uv venv
-   source .venv/bin/activate
-   uv pip install -r requirements.txt
-   ```
-
-2. Install Just command runner:
-   ```bash
-   cargo install just
+   uv sync
    ```
 
 ## Development Commands
@@ -35,6 +28,14 @@ This is a Python monorepo project that uses `uv` for dependency management and `
   ```bash
   just create-component [app|lib] name [description]
   ```
+
+  This will create a new directory in the appropriate folder (apps or libs) and add it to the workspace.
+
+   Example:
+   ```bash
+   just create-component app web-app "My web app"
+   just create-component lib utils "My utils library"
+   ```
 
 ## Project Information
 
