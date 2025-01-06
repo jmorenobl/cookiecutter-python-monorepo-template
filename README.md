@@ -1,4 +1,4 @@
-# Cookiecutter Monorepo Template
+# Cookiecutter Monorepo Template (Python)
 
 A Cookiecutter template for creating Python monorepo projects with apps and libraries, using modern tools like `uv` for dependency management and `just` for task automation.
 
@@ -32,8 +32,6 @@ cookiecutter gh:your-username/cookiecutter-monorepo-template
 - `python_version`: Python version to use (3.11 minimum)
 - `author_name`: Your name
 - `author_email`: Your email
-- `initial_app_name`: Name of the initial app to create
-- `initial_lib_name`: Name of the initial library to create
 - `use_vscode`: Whether to include VSCode configuration
 
 ## Project Structure
