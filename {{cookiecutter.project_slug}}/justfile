@@ -18,7 +18,7 @@ create-component type name description="":
     cd "${base_dir}"
     
     # Initialize with UV based on type
-    if [ "\{{type}}" = "app" ]; then
+    if [ "{{type}}" = "app" ]; then
         uv init --package \{{name}}
         cd \{{name}}  # UV creates a nested directory for packages
     else
